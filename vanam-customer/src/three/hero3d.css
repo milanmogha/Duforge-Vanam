@@ -1,0 +1,45 @@
+/* Shared visuals for the 3D hero + its fallback */
+.vn-hero-canvas,
+.vn-hero-fallback {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.vn-hero-canvas canvas {
+  display: block;
+  touch-action: pan-y; /* let the page scroll vertically over the canvas on touch */
+}
+
+/* CSS-only fallback: a warm-lit layered block on the carbon stage */
+.vn-hero-fallback {
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(120% 90% at 50% 34%, #262019 0%, #17130d 62%);
+  overflow: hidden;
+}
+
+.vn-hero-fallback__block {
+  width: min(46vw, 320px);
+  height: min(30vw, 210px);
+  border-radius: 4px;
+  background:
+    repeating-linear-gradient(180deg, #6b4a2b 0 14px, #17130d 14px 16px, #8a5f36 16px 26px, #17130d 26px 28px);
+  box-shadow:
+    0 40px 80px rgba(0, 0, 0, 0.6),
+    inset 0 2px 0 rgba(255, 223, 174, 0.28);
+  transform: perspective(900px) rotateX(10deg) rotateY(-18deg);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .vn-hero-fallback__block {
+    animation: vn-float 6s ease-in-out infinite;
+  }
+}
+
+@keyframes vn-float {
+  0%, 100% { transform: perspective(900px) rotateX(12deg) rotateY(-16deg) translateY(0); }
+  50%      { transform: perspective(900px) rotateX(12deg) rotateY(-12deg) translateY(-10px); }
+}

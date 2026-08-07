@@ -1,0 +1,125 @@
+/* Login / Signup — light editorial split card (Atelier redesign). */
+
+.login-page {
+  min-height: calc(100vh - 72px);
+  display: grid;
+  place-items: center;
+  padding: clamp(1.5rem, 5vw, 4rem) var(--gutter);
+  background: var(--bg);
+}
+
+.login-card {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  width: min(880px, 100%);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+/* Brand panel — cinematic material visual (grain on carbon) */
+.brand-panel {
+  position: relative;
+  background:
+    linear-gradient(160deg, rgba(23, 19, 13, 0.35), rgba(23, 19, 13, 0.88)),
+    repeating-linear-gradient(98deg, #6b4a2b 0 11px, #573a1f 11px 13px, #7c5731 13px 22px, #4a3016 22px 24px);
+  border-right: 1px solid var(--line);
+  padding: clamp(2rem, 5vw, 3.5rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.8rem;
+}
+.brand-logo {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #f1ecdf;
+}
+.brand-sub {
+  color: rgba(241, 236, 223, 0.75);
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+/* Form panel */
+.form-panel { padding: clamp(2rem, 5vw, 3.5rem); }
+.form-panel .title {
+  font-size: 1.6rem;
+  margin-bottom: 0.4rem;
+}
+.form-panel .subtitle {
+  color: var(--ink-faint);
+  font-size: 0.88rem;
+  margin: 0 0 1.8rem;
+}
+
+.form-panel .error {
+  background: color-mix(in srgb, var(--err) 8%, var(--surface));
+  border: 1px solid var(--err);
+  color: var(--err);
+  border-radius: var(--radius);
+  padding: 0.7rem 1rem;
+  font-size: 0.85rem;
+  margin-bottom: 1.2rem;
+}
+
+.login-form { display: flex; flex-direction: column; }
+.input-label {
+  font-size: var(--fs-label);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--ink-soft);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.login-form .input {
+  margin-bottom: 1.1rem;
+}
+.phone-row { display: flex; }
+.phone-row .input { flex: 1; }
+
+.form-actions { margin-top: 0.4rem; }
+.form-actions .btn { width: 100%; }
+
+/* Secondary actions row */
+.login-form .btn.ghost {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--line);
+  margin-right: 0.8rem;
+}
+.login-form .btn.ghost:hover { border-color: var(--ink); background: transparent; color: var(--ink); }
+.login-form .link {
+  background: none;
+  border: none;
+  color: var(--accent-deep);
+  cursor: pointer;
+  font-size: 0.85rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  padding: 0;
+}
+
+.login-form p { font-size: 0.88rem; color: var(--ink-soft); }
+.login-form p a { color: var(--accent-deep); }
+
+/* Dev demo login strip refinements */
+.vn-demo-login { flex-direction: column; align-items: flex-start; }
+.vn-demo-login__label {
+  font-size: var(--fs-label);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-weight: 600;
+  color: var(--ink-faint);
+}
+.vn-demo-login__buttons { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+
+@media (max-width: 720px) {
+  .login-card { grid-template-columns: 1fr; }
+  .brand-panel { border-right: none; border-bottom: 1px solid var(--line); padding: 1.6rem 2rem; }
+}

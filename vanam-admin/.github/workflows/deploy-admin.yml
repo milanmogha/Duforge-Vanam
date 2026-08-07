@@ -1,0 +1,59 @@
+name: Deploy Admin Vite App
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies & build
+        run: |
+         npm install
+         npm run build
+
+
+      # Clear previous deployment (no sudo needed because deploy owns the folder)
+      - name: Clear old files on server
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_ADMIN_KEY }}
+          script: |
+            rm -rf /var/www/admin/*
+            mkdir -p /var/www/admin
+            chown -R deploy:deploy /var/www/admin
+            chmod -R 755 /var/www/admin
+
+      # Upload Vite build output (dist/) CONTENTS, not the folder itself
+      - name: Upload new build to server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_ADMIN_KEY }}
+          source: "./dist/"          # <-- IMPORTANT FIX
+          target: "/var/www/admin/"
+          overwrite: true
+
+      - name: Reload Nginx
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_ADMIN_KEY }}
+          script: |
+            sudo systemctl reload nginx
+            mv /var/www/admin/dist/* /var/www/admin/ && rm -rf /var/www/admin/dist
+

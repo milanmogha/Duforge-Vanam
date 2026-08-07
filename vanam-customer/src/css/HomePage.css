@@ -1,0 +1,461 @@
+/* HomePage — LIVING MATERIALS narrative (2026 reinvention). */
+
+.lm { background: var(--bg); }
+
+/* Shared act rhythm */
+.lm-act { padding: clamp(4.5rem, 10vh, 8.5rem) 0; }
+.lm-act--band { background: var(--bg-deep); }
+
+.lm-head { margin-bottom: clamp(2rem, 5vh, 3.5rem); max-width: 60ch; }
+.lm-head .tech-label { display: block; margin-bottom: 1rem; }
+.lm-head h2 { font-size: var(--fs-h1); }
+.lm-head--row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  max-width: none;
+  flex-wrap: wrap;
+}
+
+.lm-canvas-skeleton {
+  width: 100%;
+  height: 100%;
+  min-height: 320px;
+  background: linear-gradient(90deg, var(--surface-2) 25%, var(--bg-deep) 50%, var(--surface-2) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+  border-radius: var(--radius-lg);
+}
+
+/* ═══ ACT I — Hero ═══ */
+.lm-hero {
+  position: relative;
+  height: 100svh;
+  min-height: 560px;
+  overflow: hidden;
+}
+.lm-hero__canvas { position: absolute; inset: 0; }
+.lm-hero__frame {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  pointer-events: none;
+}
+.lm-hero__copy { max-width: 30rem; padding-bottom: clamp(4rem, 12vh, 7rem); }
+.lm-hero__copy > * { pointer-events: auto; }
+.lm-hero__copy h1 {
+  font-size: clamp(2.8rem, 6.5vw, 5.4rem);
+  color: var(--ink);
+  margin: 1.1rem 0 1.3rem;
+}
+.lm-hero__copy h1 em { font-style: italic; font-weight: 400; color: var(--oak); }
+.lm-hero__sub { color: var(--ink-soft); max-width: 42ch; margin: 0 0 2rem; }
+.lm-hero__cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+.lm-hero .btn { background: var(--parchment); color: #1b1712; border-color: var(--parchment); }
+.lm-hero .btn:hover:not(:disabled) { background: var(--oak); border-color: var(--oak); color: #17130d; }
+.lm-hero .btn-outline { color: var(--ink); border-color: var(--ash-line); }
+.lm-hero .btn-outline:hover:not(:disabled) { background: var(--parchment); color: #1b1712; border-color: var(--parchment); }
+
+.lm-hero__meta {
+  position: absolute;
+  right: var(--gutter);
+  bottom: 2.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  text-align: right;
+  color: var(--ink-faint);
+}
+.lm-hero__scroll {
+  position: absolute;
+  left: 50%;
+  bottom: 1.4rem;
+  transform: translateX(-50%);
+  z-index: 2;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+.lm-hero__scroll span {
+  width: 1px;
+  height: 34px;
+  background: linear-gradient(var(--ink-faint), transparent);
+  animation: lm-drip 2.2s infinite;
+}
+@keyframes lm-drip { 0% { transform: scaleY(0); transform-origin: top; } 60% { transform: scaleY(1); } 100% { opacity: 0; } }
+
+/* Banners */
+.lm-banners { max-width: var(--maxw); margin: 2.5rem auto 0; padding: 0 var(--gutter); }
+.lm-banners a { position: relative; display: block; border-radius: var(--radius-lg); overflow: hidden; }
+.lm-banners img { width: 100%; max-height: 280px; object-fit: cover; }
+.lm-banners span {
+  position: absolute; left: 1.8rem; bottom: 1.3rem;
+  font-family: var(--font-display); font-size: 1.3rem; color: #fff;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.45);
+}
+
+/* ═══ ACT II — Material index ═══ */
+.lm-index {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: clamp(170px, 19vw, 240px);
+  gap: 1.2rem;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+  scroll-snap-type: x proximity;
+}
+.lm-index__card {
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  padding: 1.3rem 1.3rem 1.1rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  color: var(--ink);
+  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+}
+.lm-index__card:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
+.lm-index__swatch {
+  height: 110px;
+  border-radius: 4px;
+}
+.lm-index__swatch--0 { background: repeating-linear-gradient(94deg, #5a4030 0 9px, #46311f 9px 11px, #644832 11px 18px); }
+.lm-index__swatch--1 { background: repeating-linear-gradient(94deg, #a9855a 0 9px, #8a6b41 9px 11px, #b8956a 11px 18px); }
+.lm-index__swatch--2 { background: repeating-linear-gradient(94deg, #8a5a32 0 9px, #6d4423 9px 11px, #9a6a3e 11px 18px); }
+.lm-index__swatch--3 { background: repeating-linear-gradient(94deg, #3b332c 0 9px, #2b241e 9px 11px, #48403a 11px 18px); }
+.lm-index__name { font-family: var(--font-display); font-size: 1.3rem; }
+.lm-index__card--all {
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  border-style: dashed;
+}
+.lm-index__card--all .lm-index__name { font-size: 1.05rem; color: var(--accent-deep); }
+
+/* ═══ ACT III — Spaces ═══ */
+.lm-spaces {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: clamp(200px, 26vw, 330px);
+  gap: 1.2rem;
+}
+.lm-space {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: block;
+}
+.lm-space img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s var(--ease);
+}
+.lm-space:hover img { transform: scale(1.05); }
+.lm-space__veil {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 40%, rgba(23, 19, 13, 0.72));
+}
+.lm-space__label {
+  position: absolute; left: 1.4rem; right: 1.4rem; bottom: 1.2rem;
+  display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
+}
+.lm-space__label strong {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.45rem;
+  color: #f5f1e6;
+}
+.lm-space__label .tech { color: rgba(245, 241, 230, 0.92); }
+
+/* ═══ ACT IV — Signature ═══ */
+.lm-signature {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 4vw, 4rem);
+  align-items: center;
+}
+.lm-signature__vertical {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.55em;
+  color: var(--ink-faint);
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+}
+.lm-signature__media { border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--line); }
+.lm-signature__media img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4 / 3; }
+.lm-signature__body h2 { font-size: var(--fs-h1); margin: 0.9rem 0 1rem; }
+.lm-signature__body p { color: var(--ink-soft); max-width: 44ch; margin: 0 0 1.4rem; }
+.lm-signature__swatches { display: flex; gap: 0.55rem; margin-bottom: 1.8rem; }
+.lm-signature__swatches span {
+  width: 34px; height: 34px; border-radius: 50%;
+  border: 1px solid rgba(23, 19, 13, 0.2);
+}
+
+/* ═══ ACT V — Transformation (theater) ═══ */
+.lm-transform { padding: clamp(4.5rem, 10vh, 8rem) 0; }
+.lm-transform__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: center;
+}
+.lm-transform h2 { font-size: var(--fs-h2); margin: 0.9rem 0 1rem; color: var(--ink); }
+.lm-transform__note { color: var(--ink-soft); max-width: 46ch; margin: 0 0 1.6rem; }
+.lm-transform__stages { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1rem; }
+.lm-transform__stages button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--ink-soft);
+  border-radius: 999px;
+  padding: 0.55rem 1.1rem;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.lm-transform__stages button:hover { border-color: var(--ink-soft); }
+.lm-transform__stages button.is-active { background: var(--parchment); color: #1b1712; border-color: var(--parchment); }
+.lm-transform__stages button.is-active .tech { color: #574e3f; }
+.lm-transform__stagecopy { color: var(--ink-soft); min-height: 2.6em; margin: 0 0 1.2rem; max-width: 46ch; }
+.lm-transform__layers { list-style: none; display: flex; gap: 1.2rem; flex-wrap: wrap; padding: 0; margin: 0 0 1.6rem; }
+.lm-transform__layers li { color: var(--ink-faint); }
+.lm-transform__stage3d { aspect-ratio: 5 / 4; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--ash-line); }
+.link-line--light { color: var(--ink); border-color: var(--ink-faint); }
+
+/* ═══ ACT VI — Products ═══ */
+.lm-products {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+.lm-products__skeleton { height: 360px; }
+
+/* ═══ ACT VII — Finish lab ═══ */
+.lm-lab__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: center;
+}
+.lm-lab__stage { min-height: 340px; }
+.lm-lab__copy h2 { font-size: var(--fs-h1); margin: 0.9rem 0 1rem; }
+.lm-lab__copy p { color: var(--ink-soft); max-width: 40ch; margin: 0 0 1.5rem; }
+.lm-lab__swatches { display: flex; gap: 0.7rem; margin-bottom: 2rem; }
+.lm-lab__swatches button {
+  width: 42px; height: 42px; border-radius: 50%;
+  border: 2px solid transparent;
+  outline: 1px solid var(--line);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.lm-lab__swatches button:hover { transform: scale(1.1); }
+.lm-lab__swatches button.is-active { border-color: var(--bg); outline: 2px solid var(--ink); }
+
+/* ═══ ACT VIII — Visualizer teaser ═══ */
+.lm-visualizer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: center;
+  text-decoration: none;
+  color: var(--ink);
+}
+.lm-visualizer__preview {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: linear-gradient(200deg, #2e2820 0%, #17130d 70%);
+  border: 1px solid var(--line);
+  transition: box-shadow 0.35s var(--ease);
+}
+.lm-visualizer:hover .lm-visualizer__preview { box-shadow: var(--shadow); }
+.lm-visualizer__wall {
+  position: absolute; left: 8%; top: 12%; width: 52%; height: 58%;
+  background: repeating-linear-gradient(90deg, #6b4a2b 0 12px, #59391d 12px 14px, #7c5731 14px 24px);
+  transform: perspective(700px) rotateY(24deg);
+  border-radius: 2px;
+}
+.lm-visualizer__floor {
+  position: absolute; left: 4%; bottom: 8%; width: 80%; height: 22%;
+  background: repeating-linear-gradient(90deg, #8a6b41 0 26px, #77582f 26px 52px);
+  transform: perspective(700px) rotateX(58deg);
+  border-radius: 2px;
+  opacity: 0.9;
+}
+.lm-visualizer__object {
+  position: absolute; right: 16%; bottom: 26%; width: 18%; height: 26%;
+  background: #3b332c;
+  border-radius: 3px 3px 0 0;
+  box-shadow: -14px 10px 30px rgba(0,0,0,0.5);
+}
+.lm-visualizer__copy h2 { font-size: var(--fs-h1); margin: 0.9rem 0 1rem; }
+.lm-visualizer__copy p { color: var(--ink-soft); max-width: 44ch; margin: 0 0 1.8rem; }
+
+/* ═══ ACT IX — Advisor ═══ */
+.lm-advisor { text-align: center; max-width: 780px; }
+.lm-advisor__q {
+  font-size: var(--fs-h1);
+  font-style: italic;
+  font-weight: 400;
+  margin: 1.1rem 0 2.2rem;
+}
+.lm-advisor__choices { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.8rem; }
+.lm-advisor__choice {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: var(--ink);
+  text-decoration: none;
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  padding: 0.9rem 2rem;
+  transition: all 0.25s var(--ease);
+}
+.lm-advisor__choice:hover { background: var(--ink); color: var(--bg); }
+.lm-advisor__note { color: var(--ink-faint); font-size: 0.85rem; max-width: 52ch; margin: 0 auto; }
+
+/* ═══ ACT X — Calculator ═══ */
+.lm-calc {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: center;
+  border-top: 1px solid var(--line-strong);
+  padding-top: 2.4rem;
+}
+.lm-calc__copy h2 { font-size: var(--fs-h1); margin: 0.9rem 0 1rem; }
+.lm-calc__copy p { color: var(--ink-soft); max-width: 40ch; margin: 0; }
+.lm-calc__tool {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+}
+.lm-calc__inputs { display: flex; align-items: flex-end; gap: 1rem; margin-bottom: 1.2rem; }
+.lm-calc__inputs .field { flex: 1; }
+.lm-calc__inputs input {
+  background: var(--bg);
+  border: none;
+  border-bottom: 1px solid var(--line-strong);
+  border-radius: 0;
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  padding: 0.4rem 0.2rem;
+}
+.lm-calc__x { padding-bottom: 0.8rem; }
+.lm-calc__result { margin-bottom: 1.4rem; font-size: 0.95rem; color: var(--accent-deep); }
+
+/* ═══ ACT XI — Professionals (theater) ═══ */
+.lm-pro { padding: clamp(4.5rem, 10vh, 8rem) 0; }
+.lm-pro__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: center;
+}
+.lm-pro h2 { font-size: var(--fs-h1); margin-top: 0.9rem; color: var(--ink); }
+.lm-pro__items { display: flex; flex-direction: column; }
+.lm-pro__item {
+  display: flex;
+  align-items: baseline;
+  gap: 1.4rem;
+  padding: 1.3rem 0.4rem;
+  border-top: 1px solid var(--ash-line);
+  color: var(--ink);
+  text-decoration: none;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  transition: padding-left 0.3s var(--ease), color 0.2s;
+}
+.lm-pro__item:last-child { border-bottom: 1px solid var(--ash-line); }
+.lm-pro__item:hover { padding-left: 1rem; color: var(--oak); }
+.lm-pro__item .tech { color: var(--ink-faint); }
+
+/* ═══ ACT XII — Stories ═══ */
+.lm-stories { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
+.lm-story {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  padding: 1.8rem 0 0;
+  border-top: 1px solid var(--line-strong);
+  color: var(--ink);
+  text-decoration: none;
+}
+.lm-story h3 { font-size: 1.5rem; }
+.lm-story p { color: var(--ink-soft); font-size: 0.92rem; margin: 0; flex: 1; }
+.lm-story .link-line { align-self: flex-start; }
+.lm-story:hover h3 { color: var(--accent-deep); }
+
+/* ═══ ACT XIII — Final CTA (theater) ═══ */
+.lm-final {
+  position: relative;
+  padding: clamp(6rem, 16vh, 11rem) var(--gutter);
+  overflow: hidden;
+  text-align: center;
+}
+.lm-final__grain {
+  position: absolute;
+  inset: -20%;
+  background: repeating-linear-gradient(112deg, transparent 0 26px, rgba(176, 128, 70, 0.05) 26px 30px, transparent 30px 60px);
+  pointer-events: none;
+}
+.lm-final__inner { position: relative; }
+.lm-final h2 {
+  font-size: clamp(2.4rem, 6vw, 4.6rem);
+  color: var(--ink);
+  margin: 1.2rem 0 2.4rem;
+}
+.lm-final h2 em { font-style: italic; font-weight: 400; color: var(--oak); }
+.lm-final__cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.btn--light { background: var(--parchment); color: #1b1712; border-color: var(--parchment); }
+.btn--light:hover:not(:disabled) { background: var(--oak); border-color: var(--oak); color: #17130d; }
+.btn-outline--light { color: #efe9db; border-color: #efe9db; }
+.btn-outline--light:hover:not(:disabled) { background: var(--parchment); color: #1b1712; border-color: var(--parchment); }
+
+/* ═══ Responsive art direction ═══ */
+@media (max-width: 1024px) {
+  .lm-spaces { grid-template-columns: repeat(2, 1fr); }
+  .lm-signature { grid-template-columns: minmax(0, 1fr); }
+  .lm-signature__vertical { display: none; }
+}
+@media (max-width: 820px) {
+  .lm-hero { min-height: 480px; height: 92svh; }
+  .lm-hero__copy { padding-bottom: 5rem; }
+  .lm-hero__meta { display: none; }
+  .lm-transform__grid,
+  .lm-lab__grid,
+  .lm-visualizer,
+  .lm-calc,
+  .lm-pro__grid { grid-template-columns: 1fr; }
+  .lm-transform__stage3d { order: -1; }
+  .lm-lab__stage { order: -1; }
+}
+@media (max-width: 560px) {
+  .lm-spaces { grid-template-columns: 1fr; grid-auto-rows: 220px; }
+  .lm-advisor__choice { padding: 0.75rem 1.4rem; font-size: 1rem; }
+}

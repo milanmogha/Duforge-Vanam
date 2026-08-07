@@ -1,0 +1,12 @@
+/* create-react-app default */
+html,
+body,
+#root {
+  height: 100%;
+}
+
+/* any resets */
+* {
+  box-sizing: border-box;
+}
+

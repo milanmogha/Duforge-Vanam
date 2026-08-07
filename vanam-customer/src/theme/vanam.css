@@ -1,0 +1,376 @@
+/* ────────────────────────────────────────────────────────────────
+   VANAM — Light Editorial Design System ("Atelier")
+   Direction: warm cream surfaces, charcoal ink, large serif display
+   type, numbered sections, generous whitespace, minimal outlined
+   buttons. Reference aesthetic: Scandinavian furniture-studio
+   editorial (Graft).
+   ──────────────────────────────────────────────────────────────── */
+
+:root {
+  /* ── LIVING MATERIALS palette ─────────────────────────────────
+     Named material tokens (source of truth) */
+  --carbon: #17130d;      /* deep warm near-black — cinematic stages */
+  --graphite: #262019;    /* smoked graphite — raised dark surfaces */
+  --ash-line: #3d362b;    /* hairlines on carbon */
+  --parchment: #f1ecdf;   /* page base — soft parchment */
+  --limestone: #e6dfcd;   /* warm limestone band */
+  --bone: #f9f6ee;        /* raised light card */
+  --stone: #8c8271;       /* muted stone — tertiary text */
+  --oak: #b08046;         /* natural oak — warm accent */
+  --walnut: #63421f;      /* deep walnut — emphatic accent */
+  --moss: #4d5a43;        /* controlled forest */
+  --clay: #a86648;        /* muted clay */
+
+  /* Semantic mapping (existing component contract) */
+  --bg: var(--parchment);
+  --bg-deep: var(--limestone);
+  --surface: var(--bone);
+  --surface-2: #ebe4d4;
+
+  --ink: #1b1712;
+  --ink-soft: #4f4636;
+  --ink-faint: #6f6554; /* darker than raw stone — labels must stay readable */
+
+  --line: #d6cdb8;
+  --line-strong: #1b1712;
+  --accent: var(--oak);
+  --accent-deep: var(--walnut);
+  --ok: var(--moss);
+  --warn: #a05c1f;
+  --err: #9c3a2e;
+
+  /* Type */
+  --font-display: 'Fraunces', 'Georgia', serif;
+  --font-body: 'Inter', -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Menlo', monospace;
+
+  /* Scale (fluid) */
+  --fs-hero: clamp(2.6rem, 7.5vw, 6rem);
+  --fs-h1: clamp(2.2rem, 5vw, 4rem);
+  --fs-h2: clamp(1.7rem, 3.5vw, 2.6rem);
+  --fs-h3: clamp(1.2rem, 2vw, 1.5rem);
+  --fs-body: 1rem;
+  --fs-small: 0.875rem;
+  --fs-label: 0.72rem;
+
+  /* Rhythm */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.75rem;
+  --space-4: 3rem;
+  --space-5: 5rem;
+  --space-6: 8rem;
+  --gutter: clamp(1.5rem, 4vw, 4rem);
+  --maxw: 1440px;
+
+  --radius: 2px;
+  --radius-lg: 6px;
+  --shadow: 0 10px 40px rgba(28, 25, 21, 0.08);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Legacy --vn- aliases (3D component css still references these;
+     mapped onto the light palette so nothing renders dark) */
+  --vn-bg: var(--bg);
+  --vn-surface: var(--surface);
+  --vn-line: var(--line);
+  --vn-ink: var(--ink);
+  --vn-mist: var(--ink-soft);
+  --vn-brass: var(--accent);
+  --vn-moss: var(--ok);
+  --vn-font-display: var(--font-display);
+  --vn-font-text: var(--font-body);
+  --vn-ease: var(--ease);
+  --vn-maxw: var(--maxw);
+}
+
+/* ─── Base ─────────────────────────────────────────────────────── */
+/* Border-box reset: without this, every full-width element adds its
+   horizontal padding on top of 100% width and overflows the viewport —
+   which, combined with overflow-x:hidden, silently clips the right edge
+   of sections on narrow (mobile) screens. This is the single fix that
+   makes the whole layout reflow correctly on phones. */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--ink); color: var(--bg); }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 1.16; /* roomy enough that serif ascenders/descenders never clip */
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  margin: 0;
+  overflow-wrap: break-word;
+}
+/* Italic Fraunces overhangs its advance width — without a little trailing
+   room the last glyph gets shaved at container edges. */
+h1 em, h2 em, h3 em { padding-right: 0.08em; }
+h1, h2 { padding-bottom: 0.06em; }
+
+a { color: inherit; }
+
+img { max-width: 100%; display: block; }
+
+/* Accessible keyboard focus — a visible ring for keyboard/AT users only,
+   never on mouse click. Uses --accent so it adapts inside .theater scopes. */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+/* Text fields already signal focus by darkening their border — the extra
+   ring would double up, so suppress it there. */
+.field input:focus-visible,
+.field select:focus-visible,
+.field textarea:focus-visible,
+.input:focus-visible { outline: none; }
+
+/* ─── Layout primitives ────────────────────────────────────────── */
+.container {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
+
+.section { padding: var(--space-6) 0; }
+.section--tight { padding: var(--space-5) 0; }
+.section--band { background: var(--bg-deep); }
+.section--paper { background: var(--surface); }
+
+/* Numbered editorial section header:
+   <header class="sec-head"><span class="sec-no">01</span>
+   <span class="sec-label">Materials</span><h2>…</h2></header> */
+.sec-head {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: baseline;
+  gap: 0.75rem 1.25rem;
+  border-top: 1px solid var(--line-strong);
+  padding-top: 1.1rem;
+  margin-bottom: var(--space-4);
+}
+.sec-no {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  color: var(--ink-faint);
+  font-variant-numeric: tabular-nums;
+}
+.sec-label {
+  font-size: var(--fs-label);
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--ink-soft);
+}
+.sec-head h2 { grid-column: 1 / -1; font-size: var(--fs-h1); max-width: 18ch; }
+.sec-head .sec-sub {
+  grid-column: 1 / -1;
+  color: var(--ink-soft);
+  max-width: 52ch;
+  margin-top: 0.75rem;
+}
+
+.eyebrow {
+  font-size: var(--fs-label);
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--ink-faint);
+}
+
+/* ─── Buttons ──────────────────────────────────────────────────── */
+.btn,
+.btn-outline,
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.85rem 1.7rem;
+  font-family: var(--font-body);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  border-radius: var(--radius);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.25s var(--ease);
+  border: 1px solid var(--ink);
+  line-height: 1;
+  white-space: nowrap;
+}
+.btn { background: var(--ink); color: var(--bg); }
+.btn:hover:not(:disabled) { background: var(--accent-deep); border-color: var(--accent-deep); }
+.btn-outline { background: transparent; color: var(--ink); }
+.btn-outline:hover:not(:disabled) { background: var(--ink); color: var(--bg); }
+.btn-ghost { border-color: transparent; background: transparent; color: var(--ink); padding-left: 0.6rem; padding-right: 0.6rem; }
+.btn-ghost:hover:not(:disabled) { color: var(--accent-deep); }
+.btn:disabled, .btn-outline:disabled, .btn-ghost:disabled { opacity: 0.45; cursor: not-allowed; }
+.btn--sm, .btn-outline--sm { padding: 0.55rem 1.1rem; }
+.btn--danger { background: var(--err); border-color: var(--err); }
+
+/* Underlined editorial link */
+.link-line {
+  text-decoration: none;
+  font-size: var(--fs-label);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-weight: 600;
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 0.3rem;
+  transition: color 0.2s, border-color 0.2s;
+}
+.link-line:hover { color: var(--accent-deep); border-color: var(--accent-deep); }
+
+/* ─── Forms ────────────────────────────────────────────────────── */
+.field { display: flex; flex-direction: column; gap: 0.45rem; }
+.field label {
+  font-size: var(--fs-label);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--ink-soft);
+  font-weight: 600;
+}
+.field input,
+.field select,
+.field textarea,
+.input {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 0.8rem 1rem;
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  color: var(--ink);
+  transition: border-color 0.2s;
+  width: 100%;
+}
+.field input:focus, .field select:focus, .field textarea:focus, .input:focus {
+  outline: none;
+  border-color: var(--ink);
+}
+.field .hint { font-size: 0.78rem; color: var(--ink-faint); }
+.field .error { font-size: 0.78rem; color: var(--err); }
+
+/* ─── Cards & tiles ────────────────────────────────────────────── */
+.tile {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+}
+.tile:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+
+.tile-media {
+  aspect-ratio: 4 / 3;
+  background: var(--surface-2);
+  overflow: hidden;
+}
+.tile-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s var(--ease); }
+.tile:hover .tile-media img { transform: scale(1.04); }
+.tile-body { padding: 1.25rem 1.4rem 1.5rem; }
+
+/* Status pill */
+.pill {
+  display: inline-block;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: 600;
+  padding: 0.3rem 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--ink-soft);
+  background: var(--surface);
+}
+.pill--ok { color: var(--ok); border-color: var(--ok); }
+.pill--warn { color: var(--warn); border-color: var(--warn); }
+.pill--err { color: var(--err); border-color: var(--err); }
+
+/* ─── Tables ───────────────────────────────────────────────────── */
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--surface); }
+table.editorial { width: 100%; border-collapse: collapse; font-size: var(--fs-small); }
+table.editorial th {
+  text-align: left;
+  font-size: var(--fs-label);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--ink-faint);
+  font-weight: 600;
+  padding: 0.9rem 1.1rem;
+  border-bottom: 1px solid var(--line-strong);
+}
+table.editorial td { padding: 0.9rem 1.1rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+table.editorial tr:last-child td { border-bottom: none; }
+
+/* ─── States ───────────────────────────────────────────────────── */
+.empty-state {
+  text-align: center;
+  padding: var(--space-5) var(--space-3);
+  color: var(--ink-soft);
+}
+.empty-state h3 { font-size: var(--fs-h2); margin-bottom: 0.75rem; }
+
+.skeleton {
+  background: linear-gradient(90deg, var(--surface-2) 25%, var(--bg-deep) 50%, var(--surface-2) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+  border-radius: var(--radius);
+}
+@keyframes shimmer { to { background-position: -200% 0; } }
+
+/* ─── Theater scope: carbon cinematic bands ─────────────────────
+   Any section with .theater flips the semantic tokens locally, so
+   nested components (buttons, labels, cards) adapt automatically. */
+.theater {
+  --bg: var(--carbon);
+  --bg-deep: #100d09;
+  --surface: var(--graphite);
+  --surface-2: #2e2820;
+  --ink: #f3eee1;
+  --ink-soft: #cfc3a8;
+  --ink-faint: #a89d84;
+  --line: var(--ash-line);
+  --line-strong: #efe9db;
+  background: var(--bg);
+  color: var(--ink);
+}
+
+/* ─── Technical metadata type ───────────────────────────────────
+   <span class="tech">1200 × 2400 × 18 mm</span> */
+.tech {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+  color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
+}
+.tech-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--ink-faint);
+}
+
+/* Reveal-on-scroll helper (JS adds .in) */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+.reveal.in { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .tile, .tile-media img { transition: none; }
+}

@@ -1,0 +1,48 @@
+/* ────────────────────────────────────────────────────────────────
+   VANAM Admin — light editorial theme (Atelier system).
+   Same tokens as the storefront so both apps read as one brand.
+   ──────────────────────────────────────────────────────────────── */
+
+:root {
+  --bg: #f2eee6;
+  --bg-deep: #e9e3d6;
+  --surface: #faf8f3;
+  --surface-2: #efeadf;
+
+  --ink: #1c1915;
+  --ink-soft: #5a5347;
+  --ink-faint: #8b8272;
+
+  --line: #d9d1c0;
+  --line-strong: #1c1915;
+  --accent: #8a5a32;
+  --accent-deep: #5f3d20;
+  --ok: #3d6b45;
+  --warn: #a05c1f;
+  --err: #9c3a2e;
+
+  --font-display: 'Fraunces', 'Georgia', serif;
+  --font-body: 'Inter', -apple-system, 'Segoe UI', sans-serif;
+
+  --fs-label: 0.72rem;
+  --radius: 2px;
+  --radius-lg: 6px;
+  --shadow: 0 10px 40px rgba(28, 25, 21, 0.08);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+::selection { background: var(--ink); color: var(--bg); }

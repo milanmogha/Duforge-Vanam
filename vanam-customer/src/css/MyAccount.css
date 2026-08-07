@@ -1,0 +1,431 @@
+/* // src/css/MyAccount.css */
+
+/* General Wrapper for the entire My Account page */
+.account-page-wrapper {
+    display: flex;
+    gap: 40px;
+    padding: 20px;
+    background-color: var(--surface-2);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+}
+
+.account-main-content {
+    flex: 3;
+}
+
+.account-sidebar {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 100px;
+}
+
+.account-header {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--line);
+}
+
+/* --- Info Box Styling --- */
+.info-box {
+    background-color: var(--surface);
+    border-radius: 12px;
+    border: 1px solid var(--line);
+    margin-bottom: 30px;
+    overflow: hidden;
+}
+
+.info-box-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px;
+    background-color: var(--surface-2);
+    border-bottom: 1px solid var(--line);
+}
+
+.info-box-header-title {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--ink);
+}
+
+/* --- Info Row (Label + Value) Styling --- */
+.info-row {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #e7e7e7;
+    padding: 20px 25px;
+}
+
+.info-row.no-border {
+    border-bottom: none;
+}
+
+.info-label {
+    width: 200px;
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+}
+
+.info-value {
+    color: var(--ink);
+    font-weight: 500;
+}
+
+/* --- Edit Mode Input Styling --- */
+.info-input {
+    flex-grow: 1;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 0.95rem;
+}
+
+/* --- Button Styling --- */
+.edit-btn, .save-btn, .cancel-btn {
+    background: none;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.edit-btn {
+    color: var(--ink-soft);
+}
+
+.edit-btn:hover {
+    background-color: var(--surface-2);
+    color: var(--ink);
+}
+
+.edit-buttons-container {
+    display: flex;
+    gap: 10px;
+}
+
+.save-btn {
+    background-color: var(--ink);
+    color: var(--surface);
+    border: none;
+}
+
+.save-btn:hover {
+    background-color: var(--ink);
+}
+
+.cancel-btn {
+    background-color: var(--line);
+    color: var(--ink);
+    border: none;
+}
+
+.cancel-btn:hover {
+    background-color: var(--line);
+}
+
+/* --- Right Sidebar Greeting --- */
+.user-greeting {
+    text-align: center;
+}
+
+.user-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background-color: #e9e9e9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 20px;
+}
+
+.user-greeting-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 0;
+}
+
+/* --- Message Styling --- */
+.account-message {
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.account-message.success {
+    background-color: #e6f7f0;
+    color: #006437;
+}
+
+.account-message.error {
+    background-color: #fde8e8;
+    color: var(--err);
+}
+
+.account-loading {
+    text-align: center;
+    padding: 50px;
+    font-size: 1.2rem;
+}
+
+/* --- Delete Section Styling --- */
+.delete-section-header {
+    background-color: #fff1f1;
+    border-bottom-color: #ffcccc;
+}
+
+.delete-section-title {
+    color: var(--err);
+}
+
+.delete-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.delete-text {
+    margin: 0;
+    color: var(--ink-soft);
+    max-width: 60%;
+}
+
+.delete-btn {
+    background-color: var(--err);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.delete-btn:disabled {
+    background-color: var(--line);
+    cursor: not-allowed;
+}
+
+/* ====================== */
+/* RESPONSIVE DESIGN      */
+/* ====================== */
+
+/* Tablet (768px - 1024px) */
+@media (max-width: 1024px) {
+    .account-page-wrapper {
+        gap: 30px;
+        padding: 15px;
+    }
+
+    .account-header {
+        font-size: 2rem;
+    }
+
+    .info-label {
+        width: 180px;
+        font-size: 0.9rem;
+    }
+
+    .user-avatar {
+        width: 100px;
+        height: 100px;
+    }
+
+    .user-greeting-title {
+        font-size: 1.3rem;
+    }
+}
+
+/* Tablet and below (< 768px) - Stack sidebar below main content */
+@media (max-width: 768px) {
+    .account-page-wrapper {
+        flex-direction: column-reverse;
+        gap: 20px;
+        padding: 15px;
+    }
+
+    .account-sidebar {
+        padding-top: 20px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid var(--line);
+    }
+
+    .account-header {
+        font-size: 1.8rem;
+        padding-bottom: 15px;
+        margin-bottom: 15px;
+    }
+
+    .info-box-header {
+        padding: 12px 20px;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .info-box-header-title {
+        font-size: 1rem;
+    }
+
+    .info-row {
+        padding: 15px 20px;
+    }
+
+    .info-label {
+        width: 150px;
+        font-size: 0.85rem;
+    }
+
+    .info-value {
+        font-size: 0.9rem;
+    }
+
+    .delete-text {
+        max-width: 55%;
+        font-size: 0.9rem;
+    }
+}
+
+/* Mobile (< 576px) */
+@media (max-width: 576px) {
+    .account-page-wrapper {
+        padding: 10px;
+        gap: 15px;
+    }
+
+    .account-header {
+        font-size: 1.5rem;
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+    }
+
+    .info-box {
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+
+    .info-box-header {
+        padding: 12px 15px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .info-box-header-title {
+        font-size: 0.95rem;
+        width: 100%;
+    }
+
+    .edit-buttons-container {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .edit-btn {
+        align-self: flex-end;
+    }
+
+    /* Stack label and value vertically on mobile */
+    .info-row {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+        gap: 8px;
+    }
+
+    .info-label {
+        width: 100%;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--ink-soft);
+    }
+
+    .info-value {
+        width: 100%;
+        font-size: 0.9rem;
+    }
+
+    .info-input {
+        width: 90%;
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+
+    /* Delete section adjustments */
+    .delete-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .delete-text {
+        max-width: 100%;
+        font-size: 0.85rem;
+    }
+
+    .delete-btn {
+        width: 100%;
+        padding: 12px 20px;
+        font-size: 0.9rem;
+    }
+
+    /* User greeting adjustments */
+    .user-avatar {
+        width: 80px;
+        height: 80px;
+    }
+
+    .user-avatar svg {
+        width: 50px;
+        height: 50px;
+    }
+
+    .user-greeting-title {
+        font-size: 1.2rem;
+    }
+
+    /* Button adjustments for better mobile touch targets */
+    .edit-btn, .save-btn, .cancel-btn {
+        padding: 8px 14px;
+        font-size: 0.85rem;
+        min-height: 36px;
+    }
+
+    .account-message {
+        padding: 12px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Extra small mobile (< 400px) */
+@media (max-width: 400px) {
+    .account-header {
+        font-size: 1.3rem;
+    }
+
+    .info-box-header-title {
+        font-size: 0.9rem;
+    }
+
+    .edit-btn, .save-btn, .cancel-btn {
+        font-size: 0.8rem;
+        padding: 6px 12px;
+    }
+
+    .user-greeting-title {
+        font-size: 1.1rem;
+    }
+}
+

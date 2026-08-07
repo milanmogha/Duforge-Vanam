@@ -1,0 +1,38 @@
+# ── Monorepo-wide safety net ───────────────────────────────
+# Each app (vanam-admin/backend/customer) has its own .gitignore;
+# these are a defense-in-depth backstop.
+
+# Dependencies
+**/node_modules/
+
+# Environment / secrets — never commit real env files
+**/.env
+**/.env.*
+!**/.env.example
+
+# Build outputs
+**/dist/
+**/dist-ssr/
+**/build/
+
+# Caches
+**/.cache/
+**/.vite/
+**/*.tsbuildinfo
+
+# Logs
+**/*.log
+**/logs/
+
+# Keys / certs
+**/*.pem
+**/*.key
+**/.ssh/
+**/serviceAccountKey.json
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json

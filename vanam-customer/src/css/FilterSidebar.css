@@ -1,0 +1,105 @@
+/* FilterSidebar — light editorial (Atelier redesign). */
+
+.filter-sidebar {
+  align-self: start;
+  position: sticky;
+  top: 96px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 1.6rem 1.5rem 1.8rem;
+}
+
+.filter-sidebar > h3 {
+  font-family: var(--font-body);
+  font-size: var(--fs-label);
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--ink-faint);
+  font-weight: 600;
+  margin-bottom: 1.4rem;
+}
+
+.filter-group { margin-bottom: 1.7rem; }
+.filter-group:last-child { margin-bottom: 0; }
+.filter-group h4 {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--ink);
+  font-weight: 600;
+  margin: 0 0 0.8rem;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 0.55rem;
+}
+
+/* Checkboxes */
+.filter-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.32rem 0;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  cursor: pointer;
+  user-select: none;
+}
+.filter-checkbox:hover { color: var(--ink); }
+.filter-checkbox input { display: none; }
+.checkbox-custom {
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--ink-faint);
+  border-radius: 3px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  transition: background 0.15s, border-color 0.15s;
+}
+.filter-checkbox input:checked + .checkbox-custom {
+  background: var(--ink);
+  border-color: var(--ink);
+}
+.filter-checkbox input:checked + .checkbox-custom::after {
+  content: '✓';
+  color: var(--bg);
+  font-size: 0.65rem;
+  line-height: 1;
+}
+
+/* Price slider */
+.price-slider {
+  width: 100%;
+  accent-color: var(--accent-deep);
+  cursor: pointer;
+}
+.price-label {
+  margin-top: 0.5rem;
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Color swatches */
+.color-swatches { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+.swatch {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  font-size: 0.7rem;
+  color: #fff;
+  box-shadow: 0 0 0 1px var(--line);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.swatch:hover { transform: scale(1.1); }
+.swatch.selected { box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--ink); }
+
+.filter-divider { background: var(--line) !important; }
+
+@media (max-width: 1024px) {
+  .filter-sidebar { position: static; border: none; padding: 0; background: transparent; }
+}

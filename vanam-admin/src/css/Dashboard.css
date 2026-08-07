@@ -1,0 +1,122 @@
+/* src/css/Dashboard.css */
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f4f4f4; /* Light grey background */
+  color: var(--ink);
+}
+
+/* --- Main Container & Grid Layout --- */
+.bw-dashboard-container {
+  padding: 1.5rem 2rem;
+}
+
+.bw-dashboard-grid {
+  display: grid !important; /* Use !important to override conflicting styles */
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: auto;
+  gap: 1.5rem;
+}
+
+.bw-grid-card {
+  background-color: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.bw-card-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+  color: var(--ink);
+}
+
+/* --- Card Specific Styles & Grid Placement --- */
+.today-sales {
+  grid-column: 1 / 3;
+  grid-row: 1;
+}
+.top-products {
+  grid-column: 3 / 4;
+  grid-row: 1 / 3; /* Span two rows to fit top 10 */
+}
+.customer-fulfilment {
+  grid-column: 1 / 3;
+  grid-row: 2;
+}
+.earnings {
+  grid-column: 1 / 2; /* Move to bottom left */
+  grid-row: 3;
+}
+.visitor-insights {
+  grid-column: 2 / 4; /* take remaining space */
+  grid-row: 3;
+}
+
+/* Today's Sales */
+.bw-sales-cards-container { display: flex; justify-content: space-between; gap: 1.5rem; }
+.bw-sales-card { display: flex; flex-direction: column; flex-grow: 1; }
+.bw-sales-value { font-size: 1.75rem; font-weight: 700; color: var(--ink); }
+.bw-sales-title { font-size: 0.9rem; color: var(--ink-soft); margin: 4px 0; }
+.bw-sales-change { font-size: 0.8rem; color: var(--ink-soft); }
+
+/* Top Products */
+.top-products { gap: 1rem; }
+.bw-product-table-header {
+  display: grid;
+  grid-template-columns: 30px 2fr 1.5fr 1fr;
+  gap: 1rem;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  padding: 0 0.5rem;
+  text-transform: uppercase;
+}
+.bw-product-list { display: flex; flex-direction: column; gap: 0.8rem; }
+.bw-product-row {
+  display: grid;
+  grid-template-columns: 30px 2fr 1.5fr 1fr;
+  gap: 1rem;
+  align-items: center;
+}
+.bw-product-number { color: var(--ink-soft); font-weight: 600; }
+.bw-product-name { color: var(--ink); font-weight: 500; font-size: 0.9rem; }
+.no-data { color: var(--ink-soft); margin-top: 1rem; }
+.bw-popularity-bar { width: 100%; height: 8px; background-color: var(--surface-2); border-radius: 4px; }
+.bw-popularity-bar > div { height: 100%; background-color: var(--ink); border-radius: 4px; }
+.bw-sales-percent-box { background-color: var(--surface-2); color: var(--ink); font-size: 0.8rem; font-weight: 500; padding: 0.25rem 0.5rem; border-radius: 6px; text-align: center; }
+
+/* Main Chart (Customer Fulfilment) */
+.bw-chart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+.bw-view-toggle { display: flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+.bw-toggle-btn { background: transparent; color: var(--ink-soft); border: none; border-left: 1px solid var(--line); padding: 0.4rem 0.8rem; font-size: 0.8rem; font-weight: 500; cursor: pointer; transition: all 0.2s ease; }
+.bw-toggle-btn:first-child { border-left: none; }
+.bw-toggle-btn.active { background-color: var(--ink); color: var(--surface); }
+
+/* Earnings Card */
+.earnings { justify-content: center; align-items: center; text-align: center; }
+.bw-earnings-total { font-size: 2.5rem; font-weight: 700; margin: 0; }
+.bw-earnings-subtitle { color: var(--ink-soft); font-size: 0.9rem; margin-top: 0.5rem; }
+
+/* Loading / Error States */
+.bw-dashboard-loading, .bw-dashboard-error { text-align: center; padding: 4rem; font-size: 1.2rem; color: var(--ink-soft); width: 100vw; }
+.bw-dashboard-error { color: var(--err); }
+
+/* Responsive Grid */
+@media (max-width: 1200px) {
+  .bw-dashboard-grid { grid-template-columns: 1fr 1fr; }
+  .today-sales, .customer-fulfilment, .visitor-insights { grid-column: 1 / 3; }
+  .top-products { grid-column: 1 / 2; grid-row: 2; }
+  .earnings { grid-column: 2 / 3; grid-row: 2; }
+}
+@media (max-width: 768px) {
+  .bw-dashboard-container { padding: 1rem; }
+  .bw-dashboard-grid { grid-template-columns: 1fr; }
+  .today-sales, .top-products, .customer-fulfilment, .earnings, .visitor-insights {
+      grid-column: 1;
+      grid-row: auto; /* Let them stack naturally */
+  }
+  .bw-sales-cards-container { flex-direction: column; gap: 1rem; }
+}

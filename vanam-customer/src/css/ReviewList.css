@@ -1,0 +1,48 @@
+/* src/css/ReviewList.css */
+
+.review-list {
+  margin-top: 24px;
+}
+
+.review-item {
+  border-bottom: 1px solid var(--line);
+  padding: 16px 0;
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.review-username {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.review-date {
+  font-size: 0.875rem;
+  color: var(--ink-soft);
+}
+
+.review-stars {
+  margin-bottom: 8px;
+}
+
+.review-stars .star {
+  color: #ffc107; /* gold filled star */
+  margin-right: 2px;
+}
+
+.review-comment {
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+  line-height: 1.4;
+}
+
+.no-reviews {
+  font-size: 1rem;
+  color: var(--ink-soft);
+  margin-top: 12px;
+  text-align: center;
+}

@@ -1,0 +1,30 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+Allow: /products
+Allow: /about
+Allow: /contact
+
+# Disallow private/admin pages
+Disallow: /admin
+Disallow: /login
+Disallow: /signup
+Disallow: /account
+Disallow: /checkout
+Disallow: /cart
+Disallow: /orders
+Disallow: /wishlist
+
+# Allow search crawlers to access these pages
+Disallow: /account/orders
+Disallow: /account/*
+
+# Sitemap location
+Sitemap: https://vanam.example/sitemap.xml
+
+# Crawl delay for respectful indexing
+Crawl-delay: 1
+
+# Specify the canonical domain
+User-agent: *
+Allow: /

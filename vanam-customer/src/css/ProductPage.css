@@ -1,0 +1,159 @@
+/* ProductPage (shop) — light editorial (Atelier redesign). */
+
+.product-page {
+  display: grid;
+  grid-template-columns: 264px minmax(0, 1fr);
+  gap: 2.5rem;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: clamp(1.5rem, 4vw, 3.5rem) var(--gutter) var(--space-6);
+  background: var(--bg);
+}
+
+.main-content { min-width: 0; }
+
+.page-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--line-strong);
+  padding-top: 1.1rem;
+  margin-bottom: 2.2rem;
+}
+.category-heading {
+  font-size: var(--fs-h2);
+  font-weight: 500;
+}
+
+.filter-sort-wrapper { display: flex; align-items: center; gap: 1rem; }
+
+.sort-container {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: var(--fs-label);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--ink-faint);
+  font-weight: 600;
+}
+.sort-dropdown {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 0.55rem 0.9rem;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--ink);
+  cursor: pointer;
+}
+.sort-dropdown:focus { outline: none; border-color: var(--ink); }
+
+.filter-dropdown-btn {
+  background: var(--ink);
+  color: var(--bg);
+  border: 1px solid var(--ink);
+  border-radius: var(--radius);
+  padding: 0.55rem 1.2rem;
+  font-size: var(--fs-label);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  cursor: pointer;
+}
+
+/* Grid */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.no-products-found {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: var(--space-5) 1rem;
+  color: var(--ink-soft);
+}
+.no-products-found h3 {
+  font-size: var(--fs-h2);
+  margin-bottom: 0.6rem;
+}
+.no-products-found button { margin-top: 1.2rem; }
+
+/* Mobile filter overlay */
+.filter-dropdown-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(28, 25, 21, 0.35);
+  z-index: 300;
+  display: flex;
+  justify-content: flex-end;
+}
+.filter-dropdown-content {
+  width: min(360px, 92vw);
+  height: 100%;
+  background: var(--bg);
+  overflow-y: auto;
+  padding: 1.4rem;
+  animation: slide-in 0.3s var(--ease);
+}
+@keyframes slide-in {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+.filter-overlay-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.2rem;
+}
+.filter-overlay-header h3 { font-size: 1.3rem; }
+.close-filter-btn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: var(--ink-soft);
+  padding: 0.3rem 0.6rem;
+}
+
+@media (max-width: 1024px) {
+  .product-page { grid-template-columns: 1fr; }
+}
+
+/* ─── Living Materials shop intro ─────────────────────────────── */
+.shop-intro {
+  border-top: 1px solid var(--line-strong);
+  padding-top: 1.1rem;
+  margin-bottom: 2rem;
+}
+.shop-intro .page-header {
+  border-top: none;
+  padding-top: 0;
+  margin: 0.6rem 0 1.2rem;
+  align-items: baseline;
+}
+.shop-count { color: var(--ink-faint); }
+
+.shop-cats {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.4rem;
+}
+.shop-cats a {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  text-decoration: none;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.5rem 1.15rem;
+  transition: all 0.2s;
+}
+.shop-cats a:hover { border-color: var(--ink-soft); color: var(--ink); }
+.shop-cats a.is-active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+.shop-intro .filter-sort-wrapper { justify-content: flex-end; }

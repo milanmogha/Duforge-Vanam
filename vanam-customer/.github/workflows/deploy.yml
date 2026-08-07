@@ -1,0 +1,59 @@
+name: Deploy Customer Frontend
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Vite app
+        run: npm run build
+
+      # Clear previous deployment (no sudo needed because deploy owns the folder)
+      - name: Clear old files on server
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
+            rm -rf /var/www/customer
+            mkdir -p /var/www/customer
+            chown -R deploy:deploy /var/www/customer
+            chmod -R 755 /var/www/customer
+
+      # Upload Vite build output (dist/) CONTENTS, not the folder itself
+      - name: Upload new build to server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          source: "./dist/"          # <-- IMPORTANT FIX
+          target: "/var/www/customer"
+          overwrite: true
+
+      - name: Reload Nginx
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
+            sudo systemctl reload nginx
+            mv /var/www/customer/dist/* /var/www/customer/ && rm -rf /var/www/customer/dist
+
