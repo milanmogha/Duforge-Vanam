@@ -1,0 +1,42 @@
+# Vanam — production stack (runs on the VPS under /Milan/vanam)
+# nginx (system) reverse-proxies the subdomains to the localhost ports below.
+# Host ports are chosen to avoid the Makhana stack (3000/5000/5173) and the
+# in-use :8000. Images are built & pushed by GitHub Actions to GHCR.
+
+services:
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    volumes:
+      - vanam_mongo_data:/data/db
+    expose:
+      - "27017"
+
+  backend:
+    image: ghcr.io/milanmogha/vanam-backend:latest
+    restart: unless-stopped
+    depends_on:
+      - mongo
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: production
+      PORT: "8000"
+      MONGO_URI: mongodb://mongo:27017/vanam
+    ports:
+      - "127.0.0.1:8102:8000"
+
+  customer:
+    image: ghcr.io/milanmogha/vanam-customer:latest
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8100:5173"
+
+  admin:
+    image: ghcr.io/milanmogha/vanam-admin:latest
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8101:5174"
+
+volumes:
+  vanam_mongo_data:
