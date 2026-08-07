@@ -33,7 +33,6 @@ jobs:
             build_args: |
               VITE_API_URL=https://api.vanam.duforge.tech
               VITE_BASE_PATH=/
-              VITE_RAZORPAY_KEY_ID=${{ secrets.VITE_RAZORPAY_KEY_ID }}
           - app: admin
             context: vanam-admin
             image: vanam-admin
@@ -54,7 +53,9 @@ jobs:
         with:
           context: ./${{ matrix.context }}
           push: true
-          build-args: ${{ matrix.build_args }}
+          build-args: |
+            ${{ matrix.build_args }}
+            VITE_RAZORPAY_KEY_ID=${{ secrets.VITE_RAZORPAY_KEY_ID }}
           tags: |
             ${{ env.REGISTRY }}/${{ env.OWNER }}/${{ matrix.image }}:latest
             ${{ env.REGISTRY }}/${{ env.OWNER }}/${{ matrix.image }}:${{ github.sha }}
